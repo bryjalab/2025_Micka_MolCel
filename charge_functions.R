@@ -4,7 +4,7 @@ library("dplyr")
 
 #define functions
 
-##custom hendersonHasselbach
+##custom hendersonHasselbach equation - we added X (for phosphoserine) and Z (for phosphothreonine)
 phospho_hasselbalch <- function(
     pKa,
     pH = 7.0,
@@ -41,7 +41,7 @@ phospho_hasselbalch <- function(
 environment(phospho_hasselbalch) <- asNamespace('idpr')
 assignInNamespace("hendersonHasselbalch", phospho_hasselbalch, ns = "idpr")
 
-#custom protein sequence
+#custom protein sequence - we added X (for phosphoserine) and Z (for phosphothreonine)
 mycheck <- function(
     sequence,
     method = "stop",
@@ -140,7 +140,7 @@ mycheck <- function(
 environment(mycheck) <- asNamespace('idpr')
 assignInNamespace("sequenceCheck", mycheck, ns = "idpr")
 
-#custom pKa
+#custom pKa - added pKa 5.6 for phosphoserine, 5.9 for phosphothreonine
 pka <-pKaData %>%   
   select("AA", "IPC_peptide") %>% 
   filter(AA != "citation")
@@ -152,29 +152,4 @@ custom_pka <- pka %>%
 colnames(custom_pka) <- c("AA", "pKa")
 custom_pka$pKa <- as.numeric(custom_pka$pKa)
 custom_pka$AA <- as.character(custom_pka$AA)
-
-##charge adjustment according to phosphorylation levels
-charge_adjust <- function(
-    charge,
-    window) {
-  charges_df <- data.frame()
-  for (i in (1:(nrow(charge)-(window-1)))) {
-    charges <- charge[i:(i + window - 1),5]
-    charges[is.na(charges)] <- 0
-    charges <- sum(charges)/window
-    charges_df <- rbind(charges_df,charges)
-  }
-  colnames(charges_df)<-"mycharge"
-  j <- 1
-  while (j<= window/2) {
-    charges_df <- rbind(NA,charges_df)
-    j <- j+1
-  }
-  j <- 1
-  while (j<= window/2) {
-    charges_df <- rbind(charges_df, NA)
-    j <- j+1
-  }
-  return(charges_df[,1])
-}
 
