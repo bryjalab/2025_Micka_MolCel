@@ -12,5 +12,5 @@ First run script "charge_functions.R". Here we edit functions from idpr R packag
 Next run script "charge_calculation.R". We either read analyzed protein sequences directly in the script or with read them from a text file. X stands for phosphoserine and Z stands for phosphothreonine in an analysed sequence.
 
 ### Packages and R versions
-R version 4.2.2, dplyr_1.1.1, idpr_1.8.0, here_1.0.1, ggplot2_3.4.1
+Analysed at Windows 10, R version 4.2.2, dplyr_1.1.1, idpr_1.8.0, here_1.0.1, ggplot2_3.4.1
 
