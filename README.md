@@ -4,6 +4,7 @@
 Miroslav Micka, Jitender Kumar, Petra Paclíková, Zuzana Hayek, Kateřina Hanáková, Cherine Bechara, Hana Plešingerová, Sara Bologna, Ondrej Šedo, Elise Del Nero, Kristína Gömöryová, Tomáš Gybeľ, Marek Kravec, Zbyněk Zdráhal, Konstantinos Tripsianes**, Vítězslav Bryja*
 
 *Corresponding author: bryja@sci.muni.cz
+
 **Corresponding author: kostas.tripsianes@ceitec.muni.cz
 
 ## Reproducing Charge calculations
