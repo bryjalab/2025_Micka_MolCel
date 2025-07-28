@@ -120,7 +120,7 @@ poi <- c("DVL1", "DVL2", "DVL3", "VANGL1", "VANGL2", "CSNK1E", "CSNK1D", "AXIN1"
 up <- c("FZD3", "FZD5", "FZD6", "ADGRA2", "RNF43", "RYK")
 down <- c("CCDC88A", "CCDC88C", "TNKS", "TNKS2")
 
-
+# Plots
 svg(filename = here("outputs", "DVL3.wt-vs-ctrl_poi.svg"), width = 4, height = 4)
 volcano(data = data.selected,
         contrast = "DVL3.wt_ctrl",
