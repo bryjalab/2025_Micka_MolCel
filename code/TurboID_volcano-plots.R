@@ -11,6 +11,7 @@ library(ggprism)
 
 # Input ####
 data <- read.csv(here("input", "ProteinGroups.csv"))
+
 # Data processing ####
 # Omit reduntant columns
 data.selected <- data %>% 
@@ -146,15 +147,12 @@ dev.off()
 
 # Export data ####
 data.export <- data.selected %>% 
-  select(PG.ID,
-         starts_with("UniProt"),
-         matches("^PG(?!.*log2)", perl = TRUE), 
-         matches("^PG.*log2$"),                 
+  select(starts_with("UniProt"),
          DVL3.specific,
          starts_with("DVL3.wt_ctrl"),
          starts_with("DVL3.STA_ctrl"),
          starts_with("DVL3.STA_DVL3.wt")) %>% 
-  select(-matches("_B$|_t$|_P.Value$"))
+  select(-matches("_B$|_t$|_P.Value$|_delog$"))
 
 write.csv(data.export, here("outputs", "TurboID_DVL3-STA_vs_DVL3-wt.csv"), row.names = FALSE)
 
