@@ -117,7 +117,7 @@ volcano <- function(data, contrast, preys) {
 
 # Proteins of interest
 poi <- c("DVL1", "DVL2", "DVL3", "VANGL1", "VANGL2", "CSNK1E", "CSNK1D", "AXIN1", "AXIN2")
-up <- c("FZD3", "FZD5", "FZD6", "ADGRA2", "RNF43", "RYK")
+up <- c("FZD3", "FZD5", "FZD6", "ADGRA2", "RNF43", "RYK", "ZNRF3")
 down <- c("CCDC88A", "CCDC88C", "TNKS", "TNKS2")
 
 # Plots
