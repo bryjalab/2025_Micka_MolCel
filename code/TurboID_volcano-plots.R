@@ -100,7 +100,7 @@ volcano <- function(data, contrast, preys) {
   ggplot(data, aes(x = .data[[paste0(contrast, "_logFC")]], 
                    y = -log10(.data[[paste0(contrast, "_adj.P.Val")]]))) + 
     geom_point(alpha = 0.6, colour = "grey") + 
-    labs(x = expression(log[2]*FC),
+    labs(x = expression(log[2]*" fold change"),
          y = expression(-log[10]*" adj. P Value")) +
     theme_prism() +
     geom_hline(yintercept = -log10(0.05), linetype = "dashed") +
