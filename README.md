@@ -8,7 +8,7 @@ Miroslav Micka, Jitender Kumar, Petra Paclíková, Zuzana Hayek, Kateřina Haná
 **Corresponding author: kostas.tripsianes@ceitec.muni.cz
 
 ## Reproducing Charge calculations
-First run script "charge_functions.R". Here we edit functions from idpr R package (McFadden and Yanowitz, 2022), to enable charge calculation of phosphorylated proteins.
+First run script "charge_functions.R". Here, we edit functions from idpr R package [McFadden and Yanowitz, 2022](https://doi.org/10.1371/journal.pone.0266929), to enable charge calculation of phosphorylated proteins.
 Next run script "charge_calculation.R". We either read analyzed protein sequences directly in the script or with read them from a text file. X stands for phosphoserine and Z stands for phosphothreonine in an analysed sequence.
 
 ## Reproducing the interactome analysis
@@ -23,7 +23,7 @@ Data were acquired in a data-independent acquisition mode and processed in [DIA-
 To fully reproduce the analyses, run KNIME inside the Docker container using the 4.7.7 version of Docker image:
 (Note: you need to have [Docker](https://docs.docker.com/get-docker/) installed on your computer)
 
-1) Clone [this](https://github.com/OmicsWorkflows/KNIME_docker_vnc) repository locally to your computer
+1) Clone [this repository](https://github.com/OmicsWorkflows/KNIME_docker_vnc) locally to your computer
 2) Adjust the start_container script for the folder which will contain your KNIME workspace (e.g. workspace-folder)
 3) Run the start_container script to create a docker container as follows:
 `cfprot/knime:4.7.7`, `5901`, `workspace-folder`
@@ -37,7 +37,7 @@ Download the KNIME workflow (6016_publication_template.knwf) and import it into 
 Run the particular nodes by right-clicking the node and `Execute` or directly pressing `F7`. 
 Briefly, the workflow is as following:
 
-* Data input (proteinGroups.txt file) DOHLEDAT A OPRAVIT
+* Data input (240604_main_search.tsv file)
 * Contaminants filtering (cRAP, Reverse, Only identified by Site)
 * log2 transformation of protein intensities
 * LoessF normalization
@@ -45,7 +45,7 @@ Briefly, the workflow is as following:
 * Statistical testing using the limma test
 * Exporting the results as .csv file 
 
-The resulting output (ProteinGroups.csv) can be the directly used as an input for TurboID_volcano-plots.script and run within R (version 4.2.3). 
+The resulting output (ProteinGroups.csv) can be the directly used as an input for "TurboID_volcano-plots.R" script and run within R (version 4.2.3). 
 
 
 ### Packages and R versions
