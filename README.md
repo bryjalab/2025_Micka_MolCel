@@ -15,18 +15,18 @@ Next run script "charge_calculation.R". We either read analyzed protein sequence
 
 ### Deposition of raw data to PRIDE
 
-Raw proteomic data can be accessed using the PRIDE with identifiers [doplnit](doplnit) (doplnit) . 
+Raw proteomic data can be accessed using the PRIDE with identifier [PXD067002](Interactome analysis of DVL3 S/T cluster mutants using proximity labeling). 
 
 ### Setting up the Docker container for running KNIME
 In case of the analysis of protein complexes, raw data were searched using the [MaxQuant](https://www.maxquant.org/) software (v. 1.6.0.16). Resulting output, the proteinGroups.txt file, was further processed using the software container environment [OmicsWorkflows](https://github.com/OmicsWorkflows) (v. 3.7.2a): the workflow is stored within this repository as 6016_publication_template.knwf and can be inspected using the KNIME software.
 
-To fully reproduce the analyses, run KNIME inside the Docker container using the 3.7.2a version of Docker image:
+To fully reproduce the analyses, run KNIME inside the Docker container using the 4.7.7 version of Docker image:
 (Note: you need to have [Docker](https://docs.docker.com/get-docker/) installed on your computer)
 
 1) Clone [this](https://github.com/OmicsWorkflows/KNIME_docker_vnc) repository locally to your computer
 2) Adjust the start_container script for the folder which will contain your KNIME workspace (e.g. workspace-folder)
 3) Run the start_container script to create a docker container as follows:
-`cfprot/knime:3.7.2a`, `5901`, `workspace-folder`
+`cfprot/knime:4.7.7`, `5901`, `workspace-folder`
 
 For more detailed instructions, please follow the tutorial [here](https://github.com/OmicsWorkflows/KNIME_docker_vnc)
 
@@ -43,7 +43,7 @@ Briefly, the workflow is as following:
 * LoessF normalization
 * Imputation of missing values by the global minimum
 * Statistical testing using the limma test
-* Exporting the results as ProteinGroups.csv file 
+* Exporting the results as .csv file 
 
 The resulting output (ProteinGroups.csv) can be the directly used as an input for TurboID_volcano-plots.script and run within R (version 4.2.3). 
 
