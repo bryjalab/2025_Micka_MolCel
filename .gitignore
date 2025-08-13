@@ -3,4 +3,4 @@
 .RData
 .Ruserdata
 outputs/
-inputs/ProteinGroups.csv
+input/ProteinGroups.csv
