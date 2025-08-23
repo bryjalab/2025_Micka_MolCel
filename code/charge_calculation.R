@@ -4,12 +4,12 @@ library("here")
 #data
 # X is phospho serine
 # Z is phospho threonine
-linker <- "KCWDPSPRGCFTLPRSEPIRPIDPAAWVSHTAAMTGTFPAYGMSPSLSTITSTSSSITSSIPDTER"
-plinker <- "KCWDPSPRGCFTLPRSEPIRPIDPAAWVXHZAAMZGZFPAYGMXPXLXZIZXZXXXIZXXIPDZER"
-linker_deltaST <- "KCWDPSPRGCFTLPRSEPIRPIDPAAWVSHTAAMTGTFPAYGMSPDTER"
-plinker_deltaST <- "KCWDPSPRGCFTLPRSEPIRPIDPAAWVXHZAAMZGZFPAYGMXPDZER"
-linker_Dsh <- "KCWDPNPKGYFTIPRTEPVRPIDPGAWVAHTQALTSHDSIIADIAEPIKER"
-plinker_Dsh <- "KCWDPNPKGYFTIPRTEPVRPIDPGAWVAHZQALZXHDXIIADIAEPIKER"
+linker <- "KCWDPSPRGCFTLPRSEPIRPIDPAAWVSHTAAMTGTFPAYGMSPSLSTITSTSSSITSSIPDTERLDDF"
+plinker <- "KCWDPSPRGCFTLPRSEPIRPIDPAAWVXHZAAMZGZFPAYGMXPXLXZIZXZXXXIZXXIPDZERLDDF"
+linker_deltaST <- "KCWDPSPRGCFTLPRSEPIRPIDPAAWVSHTAAMTGTFPAYGMSPDTERLDDF"
+plinker_deltaST <- "KCWDPSPRGCFTLPRSEPIRPIDPAAWVXHZAAMZGZFPAYGMXPDZERLDDF"
+linker_Dsh <- "KCWDPNPKGYFTIPRTEPVRPIDPGAWVAHTQALTSHDSIIADIAEPIKERLDQN"
+plinker_Dsh <- "KCWDPNPKGYFTIPRTEPVRPIDPGAWVAHZQALZXHDXIIADIAEPIKERLDQN"
 
 
 PDZ_DEP <- read.table(here("input", "PDZ-DEP.txt"))
@@ -99,7 +99,7 @@ PDZ_DEP_charge %>% ggplot() +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_rect(fill = "#cccccc"), axis.line = element_line(colour = "black"),
         axis.text.x.top = element_text(angle = 90, vjust = 0.5), legend.position="none") +
   labs(x = "PDZ-DEP sequence",
-      y = "Average charge")
+      y = "Local charge")
 ggsave("charge.eps", width = 1000,height = 500,units = "px")
 #dev.off()
 
@@ -115,7 +115,7 @@ PDZ_DEP_deltaST_charge %>% ggplot() +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_rect(fill = "#cccccc"), axis.line = element_line(colour = "black"),
         axis.text.x.top = element_text(angle = 90, vjust = 0.5), legend.position="none") +
   labs(x = "PDZ-DEP sequence",
-       y = "Average charge")
+       y = "Local charge")
 ggsave("charge_deltaST_nogap.eps", width = 1000,height = 500,units = "px")
 #dev.off()
 
@@ -131,6 +131,6 @@ DshPDZ_DEP_charge %>% ggplot() +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_rect(fill = "#cccccc"), axis.line = element_line(colour = "black"),
         axis.text.x.top = element_text(angle = 90, vjust = 0.5), legend.position="none") +
   labs(x = "PDZ-DEP sequence",
-       y = "Average charge")
+       y = "Local charge")
 ggsave("charge_Dsh.eps", width = 1000,height = 500,units = "px")
 #dev.off()
