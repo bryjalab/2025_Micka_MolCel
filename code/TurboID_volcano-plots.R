@@ -128,43 +128,57 @@ dir.create(here("outputs"))
 svg(filename = here("outputs", "DVL3.wt-vs-ctrl_poi.svg"), width = 4, height = 4)
 volcano(data = data.selected,
         contrast = "DVL3.wt_ctrl",
-        preys = poi)
+        preys = poi) +
+  xlim(-9, 10.2) +
+  ylim(0, 23)
 dev.off()
 
 svg(filename = here("outputs", "DVL3.STA-vs-ctrl_poi.svg"), width = 4, height = 4)
 volcano(data = data.selected,
         contrast = "DVL3.STA_ctrl",
-        preys = poi)
+        preys = poi) +
+  xlim(-9, 10.2) +
+  ylim(0, 23)
 dev.off()
 
 svg(filename = here("outputs", "DVL3.STE-vs-ctrl_poi.svg"), width = 4, height = 4)
 volcano(data = data.selected,
         contrast = "DVL3.STE_ctrl",
-        preys = poi)
+        preys = poi) +
+  xlim(-9, 10.2) +
+  ylim(0, 23)
 dev.off()
 
 svg(filename = here("outputs", "DVL3.delST-vs-ctrl_poi.svg"), width = 4, height = 4)
 volcano(data = data.selected,
         contrast = "DVL3.delST_ctrl",
-        preys = poi)
+        preys = poi) +
+  xlim(-9, 10.2) +
+  ylim(0, 23)
 dev.off()
 
 svg(filename = here("outputs", "DVL3.STA-vs-DVL3.wt_updown.svg"), width = 4, height = 4)
 volcano(data = data.selected,
         contrast = "DVL3.STA_DVL3.wt",
-        preys = updown)
+        preys = updown) +
+  xlim(-6.8, 8.6) +
+  ylim(0, 18)
 dev.off()
 
 svg(filename = here("outputs", "DVL3.STE-vs-DVL3.wt_updown.svg"), width = 4, height = 4)
 volcano(data = data.selected,
         contrast ="DVL3.STE_DVL3.wt",
-        preys = updown)
+        preys = updown) +
+  xlim(-6.8, 8.6) +
+  ylim(0, 18)
 dev.off()
 
 svg(filename = here("outputs", "DVL3.delST-vs-DVL3.wt_updown.svg"), width = 4, height = 4)
 volcano(data = data.selected,
         contrast ="DVL3.delST_DVL3.wt",
-        preys = updown)
+        preys = updown) +
+  xlim(-6.8, 8.6) +
+  ylim(0, 18)
 dev.off()
 
 # Export data ####
@@ -177,7 +191,7 @@ data.export <- data.selected %>%
          starts_with("DVL3.delST_ctrl"),
          starts_with("DVL3.STA_DVL3.wt"),
          starts_with("DVL3.STE_DVL3.wt"),
-         starts_with("DVL3.delSTE_DVL3.wt")) %>% 
+         starts_with("DVL3.delST_DVL3.wt")) %>% 
   select(-matches("_B$|_t$|_P.Value$|_delog$"))
 
 write.csv(data.export, here("outputs", "TurboID_DVL3-STA_vs_DVL3-wt.csv"), row.names = FALSE)
