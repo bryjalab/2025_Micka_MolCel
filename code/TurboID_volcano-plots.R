@@ -109,6 +109,7 @@ volcano <- function(data, contrast, preys) {
     # Label and enhance specific preys
     geom_label_repel(data = . %>% filter(UniProt_Gene.Names..primary. %in% preys),
                      mapping = aes(label = UniProt_Gene.Names..primary.),
+                     force = 100,
                      colour = "black",
                      box.padding = 0.5) +
     geom_point(data = . %>% filter(UniProt_Gene.Names..primary. %in% preys),
@@ -119,8 +120,11 @@ volcano <- function(data, contrast, preys) {
 poi <- c("DVL1", "DVL2", "DVL3", "VANGL1", "VANGL2", "CSNK1E", "CSNK1D", "AXIN1", "AXIN2")
 up <- c("FZD3", "FZD5", "FZD6", "ADGRA2", "RNF43", "RYK", "ZNRF3")
 down <- c("CCDC88A", "CCDC88C", "TNKS", "TNKS2")
+updown <- c("FZD3", "FZD5", "FZD6", "ADGRA2", "RNF43", "RYK", "ZNRF3", "CCDC88A", "CCDC88C", "TNKS", "TNKS2")
 
 # Plots
+dir.create(here("outputs"))
+
 svg(filename = here("outputs", "DVL3.wt-vs-ctrl_poi.svg"), width = 4, height = 4)
 volcano(data = data.selected,
         contrast = "DVL3.wt_ctrl",
@@ -133,16 +137,34 @@ volcano(data = data.selected,
         preys = poi)
 dev.off()
 
-svg(filename = here("outputs", "DVL3.STA-vs-DVL3.wt_down.svg"), width = 4, height = 4)
+svg(filename = here("outputs", "DVL3.STE-vs-ctrl_poi.svg"), width = 4, height = 4)
 volcano(data = data.selected,
-        contrast = "DVL3.STA_DVL3.wt",
-        preys = down)
+        contrast = "DVL3.STE_ctrl",
+        preys = poi)
 dev.off()
 
-svg(filename = here("outputs", "DVL3.STA-vs-DVL3.wt_up.svg"), width = 4, height = 4)
+svg(filename = here("outputs", "DVL3.delST-vs-ctrl_poi.svg"), width = 4, height = 4)
 volcano(data = data.selected,
-        contrast ="DVL3.STA_DVL3.wt",
-        preys = up)
+        contrast = "DVL3.delST_ctrl",
+        preys = poi)
+dev.off()
+
+svg(filename = here("outputs", "DVL3.STA-vs-DVL3.wt_updown.svg"), width = 4, height = 4)
+volcano(data = data.selected,
+        contrast = "DVL3.STA_DVL3.wt",
+        preys = updown)
+dev.off()
+
+svg(filename = here("outputs", "DVL3.STE-vs-DVL3.wt_updown.svg"), width = 4, height = 4)
+volcano(data = data.selected,
+        contrast ="DVL3.STE_DVL3.wt",
+        preys = updown)
+dev.off()
+
+svg(filename = here("outputs", "DVL3.delST-vs-DVL3.wt_updown.svg"), width = 4, height = 4)
+volcano(data = data.selected,
+        contrast ="DVL3.delST_DVL3.wt",
+        preys = updown)
 dev.off()
 
 # Export data ####
@@ -151,7 +173,11 @@ data.export <- data.selected %>%
          DVL3.specific,
          starts_with("DVL3.wt_ctrl"),
          starts_with("DVL3.STA_ctrl"),
-         starts_with("DVL3.STA_DVL3.wt")) %>% 
+         starts_with("DVL3.STE_ctrl"),
+         starts_with("DVL3.delST_ctrl"),
+         starts_with("DVL3.STA_DVL3.wt"),
+         starts_with("DVL3.STE_DVL3.wt"),
+         starts_with("DVL3.delSTE_DVL3.wt")) %>% 
   select(-matches("_B$|_t$|_P.Value$|_delog$"))
 
 write.csv(data.export, here("outputs", "TurboID_DVL3-STA_vs_DVL3-wt.csv"), row.names = FALSE)
