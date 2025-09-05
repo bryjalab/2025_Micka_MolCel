@@ -1,10 +1,8 @@
 library("idpr")
 library("dplyr")
 
-
-#define functions
-
-##custom hendersonHasselbach equation - we added X (for phosphoserine) and Z (for phosphothreonine)
+### Define functions
+## custom hendersonHasselbach equation - we added X (for phosphoserine) and Z (for phosphothreonine)
 phospho_hasselbalch <- function(
     pKa,
     pH = 7.0,
@@ -41,7 +39,7 @@ phospho_hasselbalch <- function(
 environment(phospho_hasselbalch) <- asNamespace('idpr')
 assignInNamespace("hendersonHasselbalch", phospho_hasselbalch, ns = "idpr")
 
-#custom protein sequence - we added X (for phosphoserine) and Z (for phosphothreonine)
+## custom protein sequence - we added X (for phosphoserine) and Z (for phosphothreonine)
 mycheck <- function(
     sequence,
     method = "stop",
@@ -140,7 +138,7 @@ mycheck <- function(
 environment(mycheck) <- asNamespace('idpr')
 assignInNamespace("sequenceCheck", mycheck, ns = "idpr")
 
-#custom pKa - added pKa 5.6 for phosphoserine, 5.9 for phosphothreonine
+## custom pKa - added pKa 5.6 for phosphoserine, 5.9 for phosphothreonine
 pka <-pKaData %>%   
   select("AA", "IPC_peptide") %>% 
   filter(AA != "citation")
