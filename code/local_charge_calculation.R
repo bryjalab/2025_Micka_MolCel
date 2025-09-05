@@ -1,17 +1,9 @@
 library("ggplot2")
 library("here")
 
-#data
+## PDZ-IDR2-DEP sequence upload
 # X is phospho serine
 # Z is phospho threonine
-linker <- "KCWDPSPRGCFTLPRSEPIRPIDPAAWVSHTAAMTGTFPAYGMSPSLSTITSTSSSITSSIPDTERLDDF"
-plinker <- "KCWDPSPRGCFTLPRSEPIRPIDPAAWVXHZAAMZGZFPAYGMXPXLXZIZXZXXXIZXXIPDZERLDDF"
-linker_deltaST <- "KCWDPSPRGCFTLPRSEPIRPIDPAAWVSHTAAMTGTFPAYGMSPDTERLDDF"
-plinker_deltaST <- "KCWDPSPRGCFTLPRSEPIRPIDPAAWVXHZAAMZGZFPAYGMXPDZERLDDF"
-linker_Dsh <- "KCWDPNPKGYFTIPRTEPVRPIDPGAWVAHTQALTSHDSIIADIAEPIKERLDQN"
-plinker_Dsh <- "KCWDPNPKGYFTIPRTEPVRPIDPGAWVAHZQALZXHDXIIADIAEPIKERLDQN"
-
-
 PDZ_DEP <- read.table(here("input", "PDZ-DEP.txt"))
 PDZ_DEP <- toString(PDZ_DEP)
 pPDZ_DEP <- read.table(here("input", "phosphoPDZ-DEP.txt"))
@@ -29,65 +21,21 @@ Dsh_pPDZ_DEP <- read.table(here("input", "DshphosphoPDZ-DEP.txt"))
 Dsh_pPDZ_DEP <- toString(Dsh_pPDZ_DEP)
 
 
-#calculate charge
-##WT
-plinker_charge <- chargeCalculationLocal(plinker, window = 9, pH = 6.5, pKaSet = custom_pka)
-linker_charge <- chargeCalculationLocal(linker, window = 9, pH = 6.5, pKaSet = custom_pka)
-
+## calculate charge
+# WT
 pPDZ_DEP_charge <- chargeCalculationLocal(pPDZ_DEP, window = 9, pH = 6.5, pKaSet = custom_pka)
 PDZ_DEP_charge <- chargeCalculationLocal(PDZ_DEP, window = 9, pH = 6.5, pKaSet = custom_pka)
 
-##delta S/T
-plinker_deltaST_charge <- chargeCalculationLocal(plinker_deltaST, window = 9, pH = 6.5, pKaSet = custom_pka)
-linker_deltaST_charge <- chargeCalculationLocal(linker_deltaST, window = 9, pH = 6.5, pKaSet = custom_pka)
-
+# delta S/T
 pPDZ_DEP_deltaST_charge <- chargeCalculationLocal(pPDZ_DEP_deltaST, window = 9, pH = 6.5, pKaSet = custom_pka)
 PDZ_DEP_deltaST_charge <- chargeCalculationLocal(PDZ_DEP_deltaST, window = 9, pH = 6.5, pKaSet = custom_pka)
 
-##Dsh
-plinker_Dsh_charge <- chargeCalculationLocal(plinker_Dsh, window = 9, pH = 6.5, pKaSet = custom_pka)
-linker_Dsh_charge <- chargeCalculationLocal(linker_Dsh, window = 9, pH = 6.5, pKaSet = custom_pka)
-
+# Dsh
 DshpPDZ_DEP_charge <- chargeCalculationLocal(Dsh_pPDZ_DEP, window = 9, pH = 6.5, pKaSet = custom_pka)
 DshPDZ_DEP_charge <- chargeCalculationLocal(Dsh_PDZ_DEP, window = 9, pH = 6.5, pKaSet = custom_pka)
 
-
-#total charge
-##WT
-sum(linker_charge$windowCharge)
-sum(plinker_charge$windowCharge)
-
-sum(plinker_charge$windowCharge) + sum(linker_charge$windowCharge)
-
-sum(PDZ_DEP_charge$windowCharge)
-sum(pPDZ_DEP_charge$windowCharge)
-
-sum(pPDZ_DEP_charge$windowCharge) - sum(PDZ_DEP_charge$windowCharge)
-
-##deltaS/T
-sum(linker_deltaST_charge$windowCharge)
-sum(plinker_deltaST_charge$windowCharge)
-
-sum(plinker_deltaST_charge$windowCharge) + sum(linker_deltaST_charge$windowCharge)
-
-sum(PDZ_DEP_deltaST_charge$windowCharge)
-sum(pPDZ_DEP_deltaST_charge$windowCharge)
-
-sum(pPDZ_DEP_deltaST_charge$windowCharge) - sum(PDZ_DEP_deltaST_charge$windowCharge)
-##Dsh
-sum(linker_Dsh_charge$windowCharge)
-sum(plinker_Dsh_charge$windowCharge)
-
-sum(plinker_Dsh_charge$windowCharge) - sum(linker_Dsh_charge$windowCharge)
-
-sum(DshPDZ_DEP_charge$windowCharge)
-sum(DshpPDZ_DEP_charge$windowCharge)
-
-sum(DshpPDZ_DEP_charge$windowCharge) - sum(DshPDZ_DEP_charge$windowCharge)
-
-#plot
-##WT
-#svg(filename = "charge_phospho.svg", width = 4, height = 2)
+## plot
+# WT
 PDZ_DEP_charge %>% ggplot() +
   geom_hline(yintercept = 0, linetype = "solid", 
             color = "black", linewidth = 0.5, alpha = 1) +
@@ -101,10 +49,9 @@ PDZ_DEP_charge %>% ggplot() +
   labs(x = "PDZ-DEP sequence",
       y = "Local charge")
 ggsave("charge.eps", width = 1000,height = 500,units = "px")
-#dev.off()
 
 
-#svg(filename = "charge_phospho.svg", width = 4, height = 2)
+# deletion mutant
 PDZ_DEP_deltaST_charge %>% ggplot() +
   geom_hline(yintercept = 0, linetype = "solid", 
              color = "black", linewidth = 0.5, alpha = 1) +
@@ -117,10 +64,9 @@ PDZ_DEP_deltaST_charge %>% ggplot() +
   labs(x = "PDZ-DEP sequence",
        y = "Local charge")
 ggsave("charge_deltaST_nogap.eps", width = 1000,height = 500,units = "px")
-#dev.off()
 
-##Dsh
-#svg(filename = "charge_phospho.svg", width = 4, height = 2)
+
+# Dsh
 DshPDZ_DEP_charge %>% ggplot() +
   geom_hline(yintercept = 0, linetype = "solid", 
              color = "black", linewidth = 0.5, alpha = 1) +
@@ -133,4 +79,3 @@ DshPDZ_DEP_charge %>% ggplot() +
   labs(x = "PDZ-DEP sequence",
        y = "Local charge")
 ggsave("charge_Dsh.eps", width = 1000,height = 500,units = "px")
-#dev.off()
