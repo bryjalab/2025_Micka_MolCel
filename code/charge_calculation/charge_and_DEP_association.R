@@ -107,7 +107,7 @@ ggplot(DEP, aes(x = charge, y = DEP)) +
   labs(x = "Charge")+
   scale_x_continuous(
     limits = c(0, 30),
-    breaks = c(0, 5, 10, 15, 20, 25, 30),  # Specify the x-ticks you want to label
+    breaks = c(0, 5, 10, 15, 20, 25, 30),
     labels = c("0", "-5", "-10", "-15", "-20", "-25", "-30"))+
   coord_cartesian(ylim = c(-3, max(DEP$DEP) + 3))+
   theme_classic()+
@@ -152,7 +152,7 @@ ggplot(T459, aes(x = charge, y = T459)) +
   labs(x = "Charge")+
   scale_x_continuous(
     limits = c(0, 30),
-    breaks = c(0, 5, 10, 15, 20, 25, 30),  # Specify the x-ticks you want to label
+    breaks = c(0, 5, 10, 15, 20, 25, 30),
     labels = c("0", "-5", "-10", "-15", "-20", "-25", "-30"))+
   coord_cartesian(ylim = c(-3, max(T459$T459) + 3))+
   theme_classic()+
@@ -197,7 +197,7 @@ ggplot(T480, aes(x = charge, y = T480)) +
   labs(x = "Charge")+
   scale_x_continuous(
     limits = c(0, 30),
-    breaks = c(0, 5, 10, 15, 20, 25, 30),  # Specify the x-ticks you want to label
+    breaks = c(0, 5, 10, 15, 20, 25, 30),
     labels = c("0", "-5", "-10", "-15", "-20", "-25", "-30"))+
   coord_cartesian(ylim = c(-3, max(T480$T480) + 3))+
   theme_classic()+
@@ -242,7 +242,7 @@ ggplot(K483, aes(x = charge, y = K483)) +
   labs(x = "Charge")+
   scale_x_continuous(
     limits = c(0, 30),
-    breaks = c(0, 5, 10, 15, 20, 25, 30),  # Specify the x-ticks you want to label
+    breaks = c(0, 5, 10, 15, 20, 25, 30),
     labels = c("0", "-5", "-10", "-15", "-20", "-25", "-30"))+
   coord_cartesian(ylim = c(-3, max(K483$K483) + 3))+
   theme_classic()+
@@ -287,7 +287,7 @@ ggplot(S487, aes(x = charge, y = S487)) +
   labs(x = "Charge")+
   scale_x_continuous(
     limits = c(0, 30),
-    breaks = c(0, 5, 10, 15, 20, 25, 30),  # Specify the x-ticks you want to label
+    breaks = c(0, 5, 10, 15, 20, 25, 30),
     labels = c("0", "-5", "-10", "-15", "-20", "-25", "-30"))+
   coord_cartesian(ylim = c(-3, max(S487$S487) + 3))+
   theme_classic()+
