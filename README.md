@@ -20,7 +20,7 @@ Raw proteomic data can be accessed using the PRIDE with identifier [PXD067002](h
 ### Setting up the Docker container for running KNIME
 Data were acquired in a data-independent acquisition mode and processed in [DIA-NN](https://www.nature.com/articles/s41592-019-0638-x) software (v. 1.8.1). Resulting output, the proteinGroups.txt file, was further processed using the software container environment [OmicsWorkflows](https://github.com/OmicsWorkflows) (v. 4.7.7) and workflow stored within [WorkflowHub](https://doi.org/10.48546/WORKFLOWHUB.WORKFLOW.1870.1) repository as 6016_publication_template.knwf and can be inspected using the KNIME software.
 
-The workflow utilizes specific versions of Python packages. Therefore to fully reproduce the analyses, run KNIME inside the Docker container using the 4.7.7 version of Docker image:
+The workflow utilizes specific versions of Python and R packages. Therefore to fully reproduce the analyses, run KNIME inside the Docker container using the 4.7.7 version of Docker image:
 (Note: you need to have [Docker](https://docs.docker.com/get-docker/) installed on your computer)
 
 1) Clone [this repository](https://github.com/OmicsWorkflows/KNIME_docker_vnc) locally to your computer
