@@ -18,7 +18,7 @@ Next run script "charge_calculation.R". We either read analyzed protein sequence
 Raw proteomic data can be accessed using the PRIDE with identifier [PXD067002](https://www.ebi.ac.uk/pride/archive?keyword=PXD067002) (Interactome analysis of DVL3 S/T cluster mutants using proximity labeling). 
 
 ### Setting up the Docker container for running KNIME
-Data were acquired in a data-independent acquisition mode and processed in [DIA-NN](https://www.nature.com/articles/s41592-019-0638-x) software (v. 1.8.1). Resulting output, the proteinGroups.txt file, was further processed using the software container environment [OmicsWorkflows](https://github.com/OmicsWorkflows) (v. 4.7.7) and workflow stored within repository [WorkflowHub](https://doi.org/10.48546/) as 6016_publication_template.knwf and can be inspected using the KNIME software.
+Data were acquired in a data-independent acquisition mode and processed in [DIA-NN](https://www.nature.com/articles/s41592-019-0638-x) software (v. 1.8.1). Resulting output, the proteinGroups.txt file, was further processed using the software container environment [OmicsWorkflows](https://github.com/OmicsWorkflows) (v. 4.7.7) and workflow stored within [WorkflowHub](https://doi.org/10.48546/) repository as 6016_publication_template.knwf and can be inspected using the KNIME software.
 
 The workflow utilizes specific versions of Python packages. Therefore to fully reproduce the analyses, run KNIME inside the Docker container using the 4.7.7 version of Docker image:
 (Note: you need to have [Docker](https://docs.docker.com/get-docker/) installed on your computer)
