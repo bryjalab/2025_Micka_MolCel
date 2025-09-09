@@ -200,7 +200,7 @@ dev.off()
 # Dataframe with charge and association
 DVL <- data.frame(charge = c(chargepA_7.2, chargepdel_7.2, chargepE_7.2, chargepWT_7.2)*(-1),
                    DVL1 = c(1.22723172932593, 1.5097069609382, 0.79337343110206, 0),
-                   DVL2 = c(4.51254125187909, 7.63590389234427, 3.94449773638389, 0),
+                   DVL2 = c(4.51254125187909, 7.63590389234427, 3.94449773638389, 0)*(-1),
                    DVL3 = c(1.54834570375174, 4.17334976811018, 0.00767525914558874, 0),
                    color = c("#e7298aff","#1b9e77ff","#66a61eff","#d95f02ff"))
 
@@ -215,7 +215,7 @@ ggplot(DVL, aes(x = charge, y =DVL1)) +
     limits = c(0, 30),
     breaks = c(0, 5, 10, 15, 20, 25, 30), 
     labels = c("0", "-5", "-10", "-15", "-20", "-25", "-30"))+
-  coord_cartesian(ylim = c(-1, max(DVL$DVL2)+1))+
+  coord_cartesian(ylim = c(-8.6, 8.6))+
   theme_classic()+
   theme(axis.text = element_text(color = "black"),
         axis.ticks = element_line(color = "black"),
@@ -232,7 +232,7 @@ ggplot(DVL, aes(x = charge, y =DVL3)) +
     limits = c(0, 30),
     breaks = c(0, 5, 10, 15, 20, 25, 30),
     labels = c("0", "-5", "-10", "-15", "-20", "-25", "-30"))+
-  coord_cartesian(ylim = c(-1, max(DVL$DVL2)+1))+
+  coord_cartesian(ylim = c(-8.6, 8.6))+
   theme_classic()+
   theme(axis.text = element_text(color = "black"),
         axis.ticks = element_line(color = "black"),
@@ -252,13 +252,13 @@ VANGL <- data.frame(charge = c(chargepA_7.2, chargepdel_7.2, chargepE_7.2, charg
 svg(filename = "VANGL_charge.svg", width = 3, height = 2)
 ggplot(VANGL, aes(x = charge, y = VANGL1)) +
   geom_point(size = 4.5, fill = VANGL$color, shape = 22) +
-  geom_point(aes(x = charge, y = VANGL2), size = 4.5, fill = Axin$color, shape = 24) +
+  geom_point(aes(x = charge, y = VANGL2), size = 4.5, fill = VANGL$color, shape = 24) +
   labs(x = "Charge")+
   scale_x_continuous(
     limits = c(0, 30),
     breaks = c(0, 5, 10, 15, 20, 25, 30), 
     labels = c("0", "-5", "-10", "-15", "-20", "-25", "-30"))+
-  coord_cartesian(ylim = c(-1, max(VANGL$VANGL2)+1))+
+  coord_cartesian(ylim = c(-8.6, 8.6))+
   theme_classic()+
   theme(axis.text = element_text(color = "black"),
         axis.ticks = element_line(color = "black"),
@@ -278,13 +278,13 @@ CSNK1 <- data.frame(charge = c(chargepA_7.2, chargepdel_7.2, chargepE_7.2, charg
 svg(filename = "CK1_charge.svg", width = 3, height = 2)
 ggplot(CSNK1, aes(x = charge, y = CSNK1D)) +
   geom_point(size = 4.5, fill = CSNK1$color, shape = 22) +
-  geom_point(aes(x = charge, y = CSNK1E), size = 4.5, fill = Axin$color, shape = 24) +
+  geom_point(aes(x = charge, y = CSNK1E), size = 4.5, fill = CSNK1$color, shape = 24) +
   labs(x = "Charge")+
   scale_x_continuous(
     limits = c(0, 30),
     breaks = c(0, 5, 10, 15, 20, 25, 30),
     labels = c("0", "-5", "-10", "-15", "-20", "-25", "-30"))+
-  coord_cartesian(ylim = c(min(CSNK1$CSNK1E)-1, 1))+
+  coord_cartesian(ylim = c(-8.6, 8.6))+
   theme_classic()+
   theme(axis.text = element_text(color = "black"),
         axis.ticks = element_line(color = "black"),
