@@ -47,23 +47,25 @@ arrows_df <- data.frame(
   y_end   = c(chargepWT, chargepdel, chargepA, chargepE)
 )
 # plot
-svg(filename = "change_charge.svg", width = 3, height = 2)
+svg(filename = "change_charge.svg", width = 1.8, height = 1.3)
 ggplot(dcharge, aes(x = mutant, y = values, group = mutant)) +
-  geom_point(aes(color = state), size = 4.5, show.legend = FALSE) +
+  geom_point(aes(color = state), size = 2, show.legend = FALSE) +
   scale_color_manual(values = c("nonphos" = "black", "phos" = "red")) +
   geom_segment(data = arrows_df,
                aes(x = mutant, xend = mutant, y = y_start, yend = y_end),
-               arrow = arrow(length = unit(0.2, "cm")),
-               color = "grey50") +
-  geom_line(color = "grey50") +
+               arrow = arrow(length = unit(0.15, "cm")),
+               color = "grey50",
+               linewidth = 0.4) +
+  geom_line(color = "grey50", linewidth = 0.4) +
   coord_cartesian(ylim = c(min(dcharge$values) - 1, max(dcharge$values) + 1))+
   labs(x = "Variant", y = "Net charge") +
   theme_classic()+
-  theme(axis.text = element_text(color = "black"),
-        axis.ticks = element_line(color = "black"),
+  theme(axis.text = element_text(color = "black", size = 6),
+        axis.ticks = element_line(color = "black", linewidth = 0.3),
+        axis.title = element_text(size=6.5),
         axis.title.x = element_blank(),
-        aspect.ratio = 2 / 3)
-
+        axis.line = element_line(linewidth = 0.3))
+        #aspect.ratio = 2 / 3)
 dev.off()
 
 
@@ -85,6 +87,12 @@ fit_DEP <- nls(DEP ~ 100 / (1 + exp(-k * (charge - x0))),
 x0_value_DEP <- coef(fit_DEP)["x0"]
 summary(fit_DEP)
 
+#An effective Hill coefficient calculation
+k  <- coef(fit_DEP)["k"]
+x0 <- coef(fit_DEP)["x0"]
+hill_n <- k * x0
+hill_n
+
 # Get fitted values from the model
 DEP$fitted <- predict(fit_DEP)
 
@@ -98,22 +106,24 @@ predicted_CSP_DEP <- predict(fit_DEP, newdata = data.frame(charge = charge_grid_
 smooth_data_DEP <- data.frame(charge = charge_grid_DEP, DEP = predicted_CSP_DEP)
 
 # Plot original data and fitted sigmoidal curve
-svg(filename = "DEP_charge.svg", width = 3, height = 2)
+svg(filename = "DEP_charge.svg", width = 1.8, height = 1.5)
 ggplot(DEP, aes(x = charge, y = DEP)) +
-  geom_line(data = smooth_data_DEP, aes(x = charge, y = DEP), color = "grey50", linewidth = 1)+
-  geom_point(size = 4.5, fill = DEP$color, shape = 21) +  # Plot the original data points
-  geom_errorbar(aes(ymin = DEP - error, ymax = DEP + error), width =1)+
-  geom_vline(xintercept=x0_value_DEP, linetype = "dotted", color = "black", linewidth = 1)+
+  geom_line(data = smooth_data_DEP, aes(x = charge, y = DEP), color = "grey50", linewidth = 0.5)+
+  geom_point(size = 2.8, fill = DEP$color, shape = 21, stroke = 0.3) +  # Plot the original data points
+  geom_errorbar(aes(ymin = DEP - error, ymax = DEP + error), width = 0.9, linewidth = 0.3)+
+  geom_vline(xintercept=x0_value_DEP, linetype = "dotted", color = "black", linewidth = 0.5)+
   labs(x = "Charge")+
   scale_x_continuous(
     limits = c(0, 30),
-    breaks = c(0, 5, 10, 15, 20, 25, 30),
+    breaks = c(0, 5, 10, 15, 20, 25, 30),  # Specify the x-ticks you want to label
     labels = c("0", "-5", "-10", "-15", "-20", "-25", "-30"))+
   coord_cartesian(ylim = c(-3, max(DEP$DEP) + 3))+
   theme_classic()+
-  theme(axis.text = element_text(color = "black"),
-        axis.ticks = element_line(color = "black"),
+  theme(axis.text = element_text(color = "black", size = 6),
+        axis.ticks = element_line(color = "black", linewidth = 0.3),
+        axis.title = element_text(size=6.5),
         axis.title.y = element_blank(),
+        axis.line = element_line(linewidth = 0.3),
         aspect.ratio = 2 / 3)
 dev.off()
 
@@ -145,21 +155,22 @@ predicted_CSP_T459 <- predict(fit_T459, newdata = data.frame(charge = charge_gri
 smooth_data_T459 <- data.frame(charge = charge_grid_T459, T459 = predicted_CSP_T459)
 
 # Plot original data and fitted sigmoidal curve
-svg(filename = "T459_charge.svg", width = 3, height = 2)
+svg(filename = "T459_charge.svg", width = 1.6, height = 1.3)
 ggplot(T459, aes(x = charge, y = T459)) +
-  geom_line(data = smooth_data_T459, aes(x = charge, y = T459), color = "grey50", linewidth = 1)+
-  geom_point(size = 4.5, fill = T459$color, shape = 21) +  # Plot the original data points
+  geom_line(data = smooth_data_T459, aes(x = charge, y = T459), color = "grey50", linewidth = 0.5)+
+  geom_point(size = 2.8, fill = T459$color, shape = 21, stroke = 0.3) +  # Plot the original data points
   labs(x = "Charge")+
   scale_x_continuous(
     limits = c(0, 30),
-    breaks = c(0, 5, 10, 15, 20, 25, 30),
+    breaks = c(0, 5, 10, 15, 20, 25, 30),  # Specify the x-ticks you want to label
     labels = c("0", "-5", "-10", "-15", "-20", "-25", "-30"))+
   coord_cartesian(ylim = c(-3, max(T459$T459) + 3))+
   theme_classic()+
-  theme(axis.text = element_text(color = "black"),
-        axis.ticks = element_line(color = "black"),
+  theme(axis.text = element_text(color = "black", size = 6),
+        axis.ticks = element_line(color = "black", linewidth = 0.3),
+        axis.title = element_text(size=6.5),
         axis.title.y = element_blank(),
-        aspect.ratio = 2 / 3)
+        axis.line = element_line(linewidth = 0.3))
 dev.off()
 
 ## T480 values
@@ -190,21 +201,22 @@ predicted_CSP_T480 <- predict(fit_T480, newdata = data.frame(charge = charge_gri
 smooth_data_T480 <- data.frame(charge = charge_grid_T480, T480 = predicted_CSP_T480)
 
 # Plot original data and fitted sigmoidal curve
-svg(filename = "T480_charge.svg", width = 3, height = 2)
+svg(filename = "T480_charge.svg", width = 1.6, height = 1.3)
 ggplot(T480, aes(x = charge, y = T480)) +
-  geom_line(data = smooth_data_T480, aes(x = charge, y = T480), color = "grey50", linewidth = 1)+
-  geom_point(size = 4.5, fill = T480$color, shape = 21) +  # Plot the original data points
+  geom_line(data = smooth_data_T480, aes(x = charge, y = T480), color = "grey50", linewidth = 0.5)+
+  geom_point(size = 2.8, fill = T480$color, shape = 21, stroke = 0.3) +  # Plot the original data points
   labs(x = "Charge")+
   scale_x_continuous(
     limits = c(0, 30),
-    breaks = c(0, 5, 10, 15, 20, 25, 30),
+    breaks = c(0, 5, 10, 15, 20, 25, 30),  # Specify the x-ticks you want to label
     labels = c("0", "-5", "-10", "-15", "-20", "-25", "-30"))+
   coord_cartesian(ylim = c(-3, max(T480$T480) + 3))+
   theme_classic()+
-  theme(axis.text = element_text(color = "black"),
-        axis.ticks = element_line(color = "black"),
+  theme(axis.text = element_text(color = "black", size = 6),
+        axis.ticks = element_line(color = "black", linewidth = 0.3),
+        axis.title = element_text(size=6.5),
         axis.title.y = element_blank(),
-        aspect.ratio = 2 / 3)
+        axis.line = element_line(linewidth = 0.3))
 dev.off()
 
 ## K483 values
@@ -235,21 +247,22 @@ predicted_CSP_K483 <- predict(fit_K483, newdata = data.frame(charge = charge_gri
 smooth_data_K483 <- data.frame(charge = charge_grid_K483, K483 = predicted_CSP_K483)
 
 # Plot original data and fitted sigmoidal curve
-svg(filename = "K483_charge.svg", width = 3, height = 2)
+svg(filename = "K483_charge.svg", width = 1.6, height = 1.3)
 ggplot(K483, aes(x = charge, y = K483)) +
-  geom_line(data = smooth_data_K483, aes(x = charge, y = K483), color = "grey50", linewidth = 1)+
-  geom_point(size = 4.5, fill = K483$color, shape = 21) +  # Plot the original data points
+  geom_line(data = smooth_data_K483, aes(x = charge, y = K483), color = "grey50", linewidth = 0.5)+
+  geom_point(size = 2.8, fill = K483$color, shape = 21, stroke = 0.3) +  # Plot the original data points
   labs(x = "Charge")+
   scale_x_continuous(
     limits = c(0, 30),
-    breaks = c(0, 5, 10, 15, 20, 25, 30),
+    breaks = c(0, 5, 10, 15, 20, 25, 30),  # Specify the x-ticks you want to label
     labels = c("0", "-5", "-10", "-15", "-20", "-25", "-30"))+
   coord_cartesian(ylim = c(-3, max(K483$K483) + 3))+
   theme_classic()+
-  theme(axis.text = element_text(color = "black"),
-        axis.ticks = element_line(color = "black"),
+  theme(axis.text = element_text(color = "black", size = 6),
+        axis.ticks = element_line(color = "black", linewidth = 0.3),
+        axis.title = element_text(size=6.5),
         axis.title.y = element_blank(),
-        aspect.ratio = 2 / 3)
+        axis.line = element_line(linewidth = 0.3))
 dev.off()
 
 ## S487 values
@@ -280,20 +293,21 @@ predicted_CSP_S487 <- predict(fit_S487, newdata = data.frame(charge = charge_gri
 smooth_data_S487 <- data.frame(charge = charge_grid_S487, S487 = predicted_CSP_S487)
 
 # Plot original data and fitted sigmoidal curve
-svg(filename = "S487_charge.svg", width = 3, height = 2)
+svg(filename = "S487_charge.svg", width = 1.6, height = 1.3)
 ggplot(S487, aes(x = charge, y = S487)) +
-  geom_line(data = smooth_data_S487, aes(x = charge, y = S487), color = "grey50", linewidth = 1)+
-  geom_point(size = 4.5, fill = S487$color, shape = 21) +  # Plot the original data points
+  geom_line(data = smooth_data_S487, aes(x = charge, y = S487), color = "grey50", linewidth = 0.5)+
+  geom_point(size = 2.8, fill = S487$color, shape = 21, stroke = 0.3) +  # Plot the original data points
   labs(x = "Charge")+
   scale_x_continuous(
     limits = c(0, 30),
-    breaks = c(0, 5, 10, 15, 20, 25, 30),
+    breaks = c(0, 5, 10, 15, 20, 25, 30),  # Specify the x-ticks you want to label
     labels = c("0", "-5", "-10", "-15", "-20", "-25", "-30"))+
   coord_cartesian(ylim = c(-3, max(S487$S487) + 3))+
   theme_classic()+
-  theme(axis.text = element_text(color = "black"),
-        axis.ticks = element_line(color = "black"),
+  theme(axis.text = element_text(color = "black", size = 6),
+        axis.ticks = element_line(color = "black", linewidth = 0.3),
+        axis.title = element_text(size=6.5),
         axis.title.y = element_blank(),
-        aspect.ratio = 2 / 3)
+        axis.line = element_line(linewidth = 0.3))
 dev.off()
 
